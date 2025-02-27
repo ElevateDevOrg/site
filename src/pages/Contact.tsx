@@ -266,14 +266,6 @@ const Contact = () => {
                 </div>
               </div>
             </div>
-            
-            {/* Map (placeholder) */}
-            <div className="rounded-xl overflow-hidden h-64 bg-muted">
-              {/* In a real project, you would embed a Google Map or similar here */}
-              <div className="w-full h-full flex items-center justify-center bg-secondary/50">
-                <p className="text-muted-foreground">Interactive Map Coming Soon</p>
-              </div>
-            </div>
           </motion.div>
         </div>
       </div>

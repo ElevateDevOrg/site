@@ -1,4 +1,3 @@
-
 import { Check, ArrowRight, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -13,7 +12,6 @@ import {
 import { useCurrency } from '@/components/CurrencyContext';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-// Define pricing plans
 const plans = [
   {
     name: "Basic",
@@ -62,7 +60,6 @@ const plans = [
   }
 ];
 
-// Hosting plans
 const hostingPlans = [
   {
     name: "Standard Hosting",
@@ -127,7 +124,6 @@ const Pricing = () => {
             Choose the plan that fits your business needs.
           </p>
           
-          {/* Currency Selector */}
           <div className="mt-8 flex justify-center items-center gap-3">
             <span className="text-sm font-medium">Select Currency:</span>
             <Select value={currency} onValueChange={(value) => setCurrency(value as any)}>
@@ -232,9 +228,9 @@ const Pricing = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="glass rounded-2xl overflow-hidden"
+                  className="glass rounded-2xl overflow-hidden flex flex-col"
                 >
-                  <div className="p-8">
+                  <div className="p-8 flex-grow">
                     <h3 className="text-2xl font-display font-bold mb-2">{plan.name}</h3>
                     
                     <div className="mb-6">
@@ -252,7 +248,9 @@ const Pricing = () => {
                         </li>
                       ))}
                     </ul>
-                    
+                  </div>
+                  
+                  <div className="p-8 pt-0 mt-auto">
                     <Button asChild className="w-full rounded-full">
                       <Link to="/contact">
                         Select Plan
@@ -284,7 +282,6 @@ const Pricing = () => {
           </TabsContent>
         </Tabs>
         
-        {/* FAQ Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -331,7 +328,6 @@ const Pricing = () => {
           </div>
         </motion.div>
         
-        {/* CTA Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
