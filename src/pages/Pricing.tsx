@@ -1,0 +1,236 @@
+
+import { Check, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { 
+  Select, 
+  SelectContent, 
+  SelectItem, 
+  SelectTrigger, 
+  SelectValue 
+} from '@/components/ui/select';
+import { useCurrency } from '@/components/CurrencyContext';
+
+// Define pricing plans
+const plans = [
+  {
+    name: "Basic",
+    description: "Perfect for small businesses just starting out",
+    price: 1499,
+    features: [
+      "Responsive Website Design",
+      "5 Pages",
+      "Basic SEO Setup",
+      "Contact Form",
+      "Mobile Optimization",
+      "3 Rounds of Revisions"
+    ],
+    popular: false
+  },
+  {
+    name: "Professional",
+    description: "Ideal for growing businesses with specific needs",
+    price: 2999,
+    features: [
+      "Everything in Basic",
+      "Up to 10 Pages",
+      "Advanced SEO Optimization",
+      "Content Management System",
+      "E-commerce Integration (up to 30 products)",
+      "Social Media Integration",
+      "Live Chat Feature",
+      "5 Rounds of Revisions"
+    ],
+    popular: true
+  },
+  {
+    name: "Enterprise",
+    description: "Comprehensive solution for established organizations",
+    price: 5999,
+    features: [
+      "Everything in Professional",
+      "Unlimited Pages",
+      "Custom Web Applications",
+      "E-commerce Integration (unlimited products)",
+      "Advanced Analytics & Reporting",
+      "User Authentication",
+      "API Integrations",
+      "Dedicated Support",
+      "Unlimited Revisions"
+    ],
+    popular: false
+  }
+];
+
+const Pricing = () => {
+  const { currency, setCurrency, convertPrice, getCurrencySymbol } = useCurrency();
+
+  return (
+    <div className="min-h-screen pt-28 pb-20">
+      <div className="container-tight">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <div className="inline-block px-3 py-1 mb-4 rounded-full bg-secondary text-primary text-sm font-medium">
+            Pricing
+          </div>
+          <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">
+            Transparent, Value-Driven Pricing
+          </h1>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Our AI-powered approach allows us to deliver exceptional quality at competitive prices.
+            Choose the plan that fits your business needs.
+          </p>
+          
+          {/* Currency Selector */}
+          <div className="mt-8 flex justify-center items-center gap-3">
+            <span className="text-sm font-medium">Select Currency:</span>
+            <Select value={currency} onValueChange={(value) => setCurrency(value as any)}>
+              <SelectTrigger className="w-32">
+                <SelectValue placeholder="USD" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="USD">USD ($)</SelectItem>
+                <SelectItem value="GBP">GBP (£)</SelectItem>
+                <SelectItem value="EUR">EUR (€)</SelectItem>
+                <SelectItem value="ZAR">ZAR (R)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </motion.div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {plans.map((plan, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className={`relative rounded-2xl overflow-hidden ${
+                plan.popular 
+                  ? 'glass border-primary border-2 shadow-lg' 
+                  : 'glass'
+              }`}
+            >
+              {plan.popular && (
+                <div className="absolute top-0 right-0">
+                  <div className="bg-primary text-white text-xs px-3 py-1 font-medium">
+                    Most Popular
+                  </div>
+                </div>
+              )}
+              
+              <div className="p-8">
+                <h3 className="text-2xl font-display font-bold mb-2">{plan.name}</h3>
+                <p className="text-muted-foreground text-sm mb-6">{plan.description}</p>
+                
+                <div className="mb-6">
+                  <span className="text-4xl font-display font-bold">
+                    {getCurrencySymbol(currency)}{convertPrice(plan.price)}
+                  </span>
+                  <span className="text-muted-foreground">/project</span>
+                </div>
+                
+                <ul className="space-y-3 mb-8">
+                  {plan.features.map((feature, i) => (
+                    <li key={i} className="flex items-start gap-2">
+                      <Check size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                      <span className="text-sm">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                
+                <Button 
+                  asChild 
+                  className={`w-full rounded-full ${plan.popular ? '' : 'bg-secondary text-primary hover:bg-secondary/80'}`}
+                  variant={plan.popular ? 'default' : 'outline'}
+                >
+                  <Link to="/contact" className="flex items-center justify-center gap-2">
+                    Get Started
+                    <ArrowRight size={16} />
+                  </Link>
+                </Button>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+        
+        {/* FAQ Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mt-20"
+        >
+          <h2 className="text-3xl font-display font-bold mb-10 text-center">
+            Frequently Asked Questions
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {[
+              {
+                question: "How does AI help reduce development costs?",
+                answer: "Our AI tools automate repetitive tasks, accelerate development, and help identify issues early in the process. This efficiency allows us to reduce costs while maintaining high quality."
+              },
+              {
+                question: "Do your prices include hosting?",
+                answer: "No, our prices cover the design and development of your website. Hosting is typically a separate monthly cost, but we can recommend affordable hosting solutions based on your needs."
+              },
+              {
+                question: "How long does it take to complete a website?",
+                answer: "Project timelines vary based on complexity, but our AI-powered approach typically delivers websites 30-50% faster than traditional methods. Basic websites can be completed in 2-3 weeks, while more complex projects may take 4-8 weeks."
+              },
+              {
+                question: "Can I request custom features not mentioned in the plans?",
+                answer: "Absolutely! Our plans are starting points, but we can customize any solution to meet your specific needs. Contact us for a personalized quote."
+              },
+              {
+                question: "Do you offer maintenance services after the website is launched?",
+                answer: "Yes, we offer maintenance packages to keep your website secure, updated, and running smoothly. We can discuss these options during our consultation."
+              },
+              {
+                question: "What payment methods do you accept?",
+                answer: "We accept credit/debit cards, bank transfers, and PayPal. We typically require a 50% deposit to begin work, with the remaining balance due upon project completion."
+              }
+            ].map((faq, index) => (
+              <div key={index} className="glass p-6 rounded-xl">
+                <h3 className="text-lg font-display font-semibold mb-3">{faq.question}</h3>
+                <p className="text-muted-foreground text-sm">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+        
+        {/* CTA Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mt-20 text-center"
+        >
+          <div className="glass p-10 rounded-2xl bg-primary/5">
+            <h2 className="text-2xl md:text-3xl font-display font-bold mb-4">
+              Need a Custom Solution?
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
+              If none of our standard packages fit your needs, we'd be happy to provide a custom quote tailored to your specific requirements.
+            </p>
+            <Button asChild size="lg" className="rounded-full">
+              <Link to="/contact" className="flex items-center gap-2">
+                Request a Custom Quote <ArrowRight size={18} />
+              </Link>
+            </Button>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
+};
+
+export default Pricing;
