@@ -1,7 +1,6 @@
 
 import { ArrowRight, Code, LineChart, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
@@ -9,8 +8,95 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center hero-gradient pt-24">
-        <div className="container-tight">
+      <section className="relative min-h-screen flex items-center pt-24 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          {/* Abstract Shapes */}
+          <motion.div 
+            className="absolute top-[15%] right-[10%] w-64 h-64 rounded-full bg-gradient-to-r from-primary/20 to-violet-500/20 blur-3xl"
+            initial={{ opacity: 0 }}
+            animate={{ 
+              opacity: [0.4, 0.8, 0.4],
+              scale: [1, 1.2, 1],
+              rotate: [0, 90, 0]
+            }}
+            transition={{
+              duration: 15,
+              repeat: Infinity,
+              repeatType: "reverse"
+            }}
+          />
+          <motion.div 
+            className="absolute bottom-[20%] left-[5%] w-80 h-80 rounded-full bg-gradient-to-r from-blue-500/10 to-primary/10 blur-3xl"
+            initial={{ opacity: 0 }}
+            animate={{ 
+              opacity: [0.3, 0.6, 0.3],
+              scale: [1, 1.1, 1],
+              rotate: [0, -60, 0]
+            }}
+            transition={{
+              duration: 18,
+              repeat: Infinity,
+              repeatType: "reverse",
+              delay: 1
+            }}
+          />
+          <motion.div 
+            className="absolute top-[40%] left-[30%] w-72 h-72 rounded-full bg-gradient-to-r from-yellow-400/10 to-pink-500/10 blur-3xl"
+            initial={{ opacity: 0 }}
+            animate={{ 
+              opacity: [0.2, 0.5, 0.2],
+              scale: [1, 1.3, 1]
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              repeatType: "reverse",
+              delay: 2
+            }}
+          />
+          
+          {/* Floating Elements */}
+          <motion.div 
+            className="absolute top-[30%] right-[20%] w-20 h-20 bg-primary/10 rounded-xl backdrop-blur-lg border border-white/10"
+            initial={{ y: 0, rotate: 0 }}
+            animate={{ 
+              y: [0, -20, 0],
+              rotate: [0, 5, 0]
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              repeatType: "reverse"
+            }}
+          />
+          <motion.div 
+            className="absolute bottom-[35%] left-[15%] w-16 h-16 bg-primary/20 rounded-full backdrop-blur-lg"
+            initial={{ y: 0 }}
+            animate={{ y: [0, 15, 0] }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              repeatType: "reverse",
+              delay: 1
+            }}
+          />
+          <motion.div 
+            className="absolute top-[60%] right-[35%] w-12 h-12 bg-violet-500/10 rounded-md backdrop-blur-lg"
+            initial={{ y: 0, rotate: 0 }}
+            animate={{ 
+              y: [0, -10, 0],
+              rotate: [0, 10, 0]
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              repeatType: "reverse",
+              delay: 2
+            }}
+          />
+        </div>
+        
+        <div className="container-tight relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
@@ -18,15 +104,15 @@ const Index = () => {
               transition={{ duration: 0.7 }}
               className="text-center lg:text-left"
             >
-              <div className="inline-block px-3 py-1 mb-6 rounded-full bg-primary/10 text-primary text-sm font-medium">
-                Web Development Reimagined
+              <div className="inline-block px-3 py-1 mb-6 rounded-full bg-primary/10 text-primary text-sm font-medium backdrop-blur-sm">
+                AI-Powered Web Development
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight mb-6">
-                <span className="block">Elevate Your Digital</span>
-                <span className="text-gradient">Presence With AI</span>
+                <span className="text-gradient">Elevate Your Digital</span>
+                <span className="block mt-1">Presence</span>
               </h1>
               <p className="text-muted-foreground text-lg mb-8 max-w-xl mx-auto lg:mx-0">
-                We combine human creativity with artificial intelligence to deliver exceptional websites at competitive prices, making premium web development accessible to all.
+                Beautiful websites, faster & more affordable through AI.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Button asChild size="lg" className="rounded-full">
@@ -42,27 +128,94 @@ const Index = () => {
             </motion.div>
             
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="flex justify-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 0.3 }}
+              className="hidden lg:flex items-center justify-center"
             >
-              <div className="relative">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/30 to-violet-500/30 rounded-2xl blur-xl opacity-50"></div>
-                <div className="relative glass rounded-2xl overflow-hidden shadow-2xl">
-                  <img 
-                    src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d" 
-                    alt="Web development with AI" 
-                    className="w-full h-auto object-cover"
-                  />
-                </div>
+              <div className="relative w-full h-[500px] perspective">
+                {/* Floating Panels */}
+                <motion.div 
+                  className="absolute top-0 left-[10%] w-64 h-48 glass rounded-xl shadow-xl overflow-hidden border border-white/20"
+                  initial={{ x: -10, y: 0, rotateY: 0 }}
+                  animate={{ 
+                    x: [-10, 10, -10],
+                    y: [0, -15, 0],
+                    rotateY: [0, 5, 0]
+                  }}
+                  transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    repeatType: "reverse"
+                  }}
+                >
+                  <div className="h-2 w-full bg-gradient-to-r from-primary to-violet-500"></div>
+                  <div className="p-4">
+                    <div className="w-1/2 h-3 bg-gray-200 rounded-full mb-3"></div>
+                    <div className="w-3/4 h-3 bg-gray-200 rounded-full mb-3"></div>
+                    <div className="w-2/3 h-3 bg-gray-200 rounded-full"></div>
+                    <div className="mt-6 flex gap-2">
+                      <div className="w-8 h-8 rounded-full bg-primary/20"></div>
+                      <div className="w-8 h-8 rounded-full bg-primary/20"></div>
+                    </div>
+                  </div>
+                </motion.div>
+                
+                <motion.div 
+                  className="absolute bottom-[5%] right-[5%] w-72 h-60 glass rounded-xl shadow-xl overflow-hidden border border-white/20 z-20"
+                  initial={{ x: 10, y: 0, rotateY: 0 }}
+                  animate={{ 
+                    x: [10, -10, 10],
+                    y: [0, 20, 0],
+                    rotateY: [0, -5, 0]
+                  }}
+                  transition={{
+                    duration: 7,
+                    repeat: Infinity,
+                    repeatType: "reverse",
+                    delay: 1
+                  }}
+                >
+                  <div className="h-2 w-full bg-gradient-to-r from-blue-400 to-primary"></div>
+                  <div className="p-4">
+                    <div className="w-1/3 h-3 bg-gray-200 rounded-full mb-3"></div>
+                    <div className="w-full h-24 bg-gray-200/50 rounded-lg mb-3"></div>
+                    <div className="w-1/2 h-3 bg-gray-200 rounded-full"></div>
+                    <div className="mt-4 flex justify-end">
+                      <div className="w-20 h-6 rounded-full bg-primary/20"></div>
+                    </div>
+                  </div>
+                </motion.div>
+                
+                <motion.div 
+                  className="absolute top-[40%] right-[15%] w-56 h-40 glass rounded-xl shadow-xl overflow-hidden border border-white/20 z-10"
+                  initial={{ x: 0, y: 10, rotateY: 0 }}
+                  animate={{ 
+                    x: [0, 15, 0],
+                    y: [10, -10, 10],
+                    rotateY: [0, 8, 0]
+                  }}
+                  transition={{
+                    duration: 9,
+                    repeat: Infinity,
+                    repeatType: "reverse",
+                    delay: 2
+                  }}
+                >
+                  <div className="h-2 w-full bg-gradient-to-r from-pink-400 to-purple-500"></div>
+                  <div className="flex p-4 items-center justify-center h-full">
+                    <div className="w-12 h-12 rounded-full bg-primary/30 flex items-center justify-center">
+                      <div className="w-6 h-6 rounded-full bg-primary"></div>
+                    </div>
+                  </div>
+                </motion.div>
               </div>
             </motion.div>
           </div>
         </div>
         
         {/* Decorative elements */}
-        <div className="absolute bottom-10 left-0 right-0 flex justify-center">
+        <div className="absolute bottom-10 left-0 right-0 flex justify-center z-10">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -70,7 +223,7 @@ const Index = () => {
             className="animate-bounce"
           >
             <a href="#services" className="flex flex-col items-center text-muted-foreground hover:text-primary transition-colors">
-              <span className="text-sm font-medium mb-2">Scroll Down</span>
+              <span className="text-sm font-medium mb-2">Explore</span>
               <ArrowRight size={20} className="rotate-90" />
             </a>
           </motion.div>
@@ -78,8 +231,14 @@ const Index = () => {
       </section>
       
       {/* Services Section */}
-      <section id="services" className="section-padding bg-white">
-        <div className="container-tight">
+      <section id="services" className="section-padding bg-white relative overflow-hidden">
+        {/* Abstract Background Elements */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-b from-primary/5 to-transparent rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-t from-violet-500/5 to-transparent rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="container-tight relative z-10">
           <div className="text-center mb-16">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -93,30 +252,27 @@ const Index = () => {
               <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
                 How We Elevate Your Business
               </h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                We leverage artificial intelligence to streamline the development process, resulting in faster delivery, lower costs, and exceptional quality.
-              </p>
             </motion.div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
                 icon: <Code className="text-primary h-8 w-8" />,
                 title: "Web Development",
-                description: "Custom websites and web applications built with the latest technologies and optimized for performance.",
+                description: "Beautiful, responsive websites powered by AI for faster delivery and lower costs.",
                 delay: 0.1
               },
               {
                 icon: <LineChart className="text-primary h-8 w-8" />,
                 title: "Digital Marketing",
-                description: "Strategies to increase your online visibility, drive traffic, and convert visitors into customers.",
+                description: "Strategies to increase visibility, drive traffic, and convert visitors to customers.",
                 delay: 0.3
               },
               {
                 icon: <Zap className="text-primary h-8 w-8" />,
                 title: "AI Integration",
-                description: "Implement intelligent features and automation to enhance user experience and streamline operations.",
+                description: "Implement intelligent features to enhance user experience and streamline operations.",
                 delay: 0.5
               }
             ].map((service, index) => (
@@ -140,149 +296,89 @@ const Index = () => {
               </motion.div>
             ))}
           </div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mt-12 text-center"
+          >
+            <Button asChild variant="outline" className="rounded-full">
+              <Link to="/pricing" className="group flex items-center">
+                View Our Pricing
+                <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </Button>
+          </motion.div>
         </div>
       </section>
       
-      {/* Why Choose Us Section */}
-      <section className="section-padding bg-secondary">
-        <div className="container-tight">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-              className="relative"
-            >
-              <div className="absolute -inset-1 bg-gradient-to-r from-primary/30 to-violet-500/30 rounded-2xl blur-xl opacity-50"></div>
-              <div className="relative overflow-hidden rounded-2xl shadow-xl">
-                <img
-                  src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158"
-                  alt="Our work environment"
-                  className="w-full h-auto object-cover"
-                />
-              </div>
-            </motion.div>
-            
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-            >
-              <div className="inline-block px-3 py-1 mb-4 rounded-full bg-primary/10 text-primary text-sm font-medium">
-                Why Choose Us
-              </div>
-              <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
-                The ElevateDev Advantage
-              </h2>
-              
-              <div className="space-y-6">
-                {[
-                  {
-                    title: "AI-Powered Development",
-                    description: "Our AI tools accelerate the development process without compromising on quality, saving you time and money."
-                  },
-                  {
-                    title: "Human Creativity & Expertise",
-                    description: "While AI speeds things up, human experts ensure your website is tailored to your unique brand and audience."
-                  },
-                  {
-                    title: "Transparent Pricing",
-                    description: "No hidden fees or surprise costs. Our pricing is clear, competitive, and offers exceptional value."
-                  }
-                ].map((item, index) => (
-                  <div key={index} className="flex gap-4">
-                    <div className="flex-shrink-0 mt-1">
-                      <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center text-white">
-                        <span className="text-xs font-bold">{index + 1}</span>
-                      </div>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-display font-medium mb-2">{item.title}</h3>
-                      <p className="text-muted-foreground">{item.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              
-              <Button asChild className="mt-8 rounded-full">
-                <Link to="/pricing">View Our Pricing</Link>
-              </Button>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-      
-      {/* Testimonials Section */}
-      <section className="section-padding bg-white">
-        <div className="container-tight">
-          <div className="text-center mb-16">
+      {/* Why Choose Us Section - Simplified */}
+      <section className="section-padding bg-secondary relative overflow-hidden">
+        {/* Abstract Shape */}
+        <div className="absolute -top-[10%] -right-[5%] w-80 h-80 rounded-full bg-gradient-to-b from-primary/10 to-transparent blur-3xl"></div>
+        
+        <div className="container-tight relative z-10">
+          <div className="text-center mb-12">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <div className="inline-block px-3 py-1 mb-4 rounded-full bg-secondary text-primary text-sm font-medium">
-                Testimonials
+              <div className="inline-block px-3 py-1 mb-4 rounded-full bg-primary/10 text-primary text-sm font-medium">
+                Why Choose Us
               </div>
               <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
-                What Our Clients Say
+                The ElevateDev Advantage
               </h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                Don't just take our word for it. Here's what our clients have to say about working with ElevateDev.
-              </p>
             </motion.div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             {[
               {
-                name: "Sarah Johnson",
-                company: "Bloom Boutique",
-                image: "https://randomuser.me/api/portraits/women/45.jpg",
-                quote: "Working with ElevateDev was a game-changer for our boutique. They delivered a beautiful website in half the time and at a fraction of the cost we expected.",
-                delay: 0.1
+                title: "AI-Powered Development",
+                description: "Faster delivery and lower costs without compromising quality."
               },
               {
-                name: "Michael Chen",
-                company: "TechNova Solutions",
-                image: "https://randomuser.me/api/portraits/men/32.jpg",
-                quote: "As a tech company, we were skeptical about AI-powered development, but ElevateDev proved us wrong. The quality and attention to detail exceeded our expectations.",
-                delay: 0.3
+                title: "Human Creativity",
+                description: "AI efficiency combined with human creativity for your unique brand."
               },
               {
-                name: "Emma Rodriguez",
-                company: "Urban Fitness",
-                image: "https://randomuser.me/api/portraits/women/63.jpg",
-                quote: "Our fitness studio needed a website that reflected our energy and professionalism. ElevateDev delivered exactly what we needed, and the online booking system has increased our class attendance by 30%.",
-                delay: 0.5
+                title: "Transparent Pricing",
+                description: "Clear, competitive pricing with no hidden fees or surprise costs."
               }
-            ].map((testimonial, index) => (
-              <motion.div
-                key={index}
+            ].map((item, index) => (
+              <motion.div 
+                key={index} 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: testimonial.delay }}
-                className="glass p-8 rounded-xl"
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="glass rounded-xl p-6 text-center"
               >
-                <div className="flex items-center mb-4">
-                  <img
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    className="w-12 h-12 rounded-full mr-4 object-cover"
-                  />
-                  <div>
-                    <h4 className="font-display font-semibold">{testimonial.name}</h4>
-                    <p className="text-sm text-muted-foreground">{testimonial.company}</p>
-                  </div>
+                <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-primary flex items-center justify-center text-white">
+                  <span className="text-xl font-bold">{index + 1}</span>
                 </div>
-                <p className="text-muted-foreground italic">"{testimonial.quote}"</p>
+                <h3 className="text-lg font-display font-medium mb-2">{item.title}</h3>
+                <p className="text-muted-foreground text-sm">{item.description}</p>
               </motion.div>
             ))}
           </div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center"
+          >
+            <Button asChild className="rounded-full">
+              <Link to="/contact">Get Started Today</Link>
+            </Button>
+          </motion.div>
         </div>
       </section>
       
@@ -300,7 +396,7 @@ const Index = () => {
               Ready to Elevate Your Digital Presence?
             </h2>
             <p className="text-white/80 max-w-2xl mx-auto mb-8 text-lg">
-              Let's discuss how we can help you create a website that stands out from the competition while staying within your budget.
+              Let's create something amazing together.
             </p>
             <Button asChild size="lg" variant="secondary" className="rounded-full">
               <Link to="/contact" className="text-primary font-medium">

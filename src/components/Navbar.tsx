@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Bird } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Navbar = () => {
@@ -42,8 +42,8 @@ const Navbar = () => {
     >
       <div className="container-wide flex items-center justify-between">
         <Link to="/" className="flex items-center space-x-2">
-          <div className="relative h-10 w-10 overflow-hidden rounded-md bg-primary">
-            <div className="absolute inset-0 flex items-center justify-center text-white font-display font-bold text-xl">E</div>
+          <div className="relative h-10 w-10 overflow-hidden rounded-md bg-transparent border border-primary flex items-center justify-center">
+            <Bird className="h-6 w-6 text-primary" />
           </div>
           <span className="font-display font-semibold text-2xl tracking-tight">Elevate<span className="text-primary">Dev</span></span>
         </Link>

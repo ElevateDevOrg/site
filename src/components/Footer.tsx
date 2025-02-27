@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom';
-import { Mail, MapPin, Phone } from 'lucide-react';
+import { Mail, MapPin, Phone, Bird } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -11,8 +11,8 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           <div className="space-y-4">
             <Link to="/" className="flex items-center space-x-2">
-              <div className="relative h-10 w-10 overflow-hidden rounded-md bg-primary">
-                <div className="absolute inset-0 flex items-center justify-center text-white font-display font-bold text-xl">E</div>
+              <div className="relative h-10 w-10 overflow-hidden rounded-md bg-transparent border border-primary flex items-center justify-center">
+                <Bird className="h-6 w-6 text-primary" />
               </div>
               <span className="font-display font-semibold text-2xl tracking-tight">
                 Elevate<span className="text-primary">Dev</span>

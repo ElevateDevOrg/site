@@ -1,5 +1,5 @@
 
-import { Check, ArrowRight } from 'lucide-react';
+import { Check, ArrowRight, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -11,55 +11,96 @@ import {
   SelectValue 
 } from '@/components/ui/select';
 import { useCurrency } from '@/components/CurrencyContext';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 // Define pricing plans
 const plans = [
   {
     name: "Basic",
     description: "Perfect for small businesses just starting out",
-    price: 1499,
+    price: 500,
     features: [
       "Responsive Website Design",
-      "5 Pages",
+      "3-5 Pages",
       "Basic SEO Setup",
       "Contact Form",
       "Mobile Optimization",
-      "3 Rounds of Revisions"
+      "2 Rounds of Revisions"
     ],
     popular: false
   },
   {
     name: "Professional",
     description: "Ideal for growing businesses with specific needs",
-    price: 2999,
+    price: 1000,
     features: [
       "Everything in Basic",
       "Up to 10 Pages",
       "Advanced SEO Optimization",
       "Content Management System",
-      "E-commerce Integration (up to 30 products)",
       "Social Media Integration",
-      "Live Chat Feature",
-      "5 Rounds of Revisions"
+      "Basic Analytics Integration",
+      "3 Rounds of Revisions"
     ],
     popular: true
   },
   {
     name: "Enterprise",
     description: "Comprehensive solution for established organizations",
-    price: 5999,
+    price: null, // No fixed price
     features: [
-      "Everything in Professional",
+      "Custom Website Development",
       "Unlimited Pages",
+      "E-commerce Integration",
       "Custom Web Applications",
-      "E-commerce Integration (unlimited products)",
       "Advanced Analytics & Reporting",
       "User Authentication",
       "API Integrations",
-      "Dedicated Support",
       "Unlimited Revisions"
     ],
     popular: false
+  }
+];
+
+// Hosting plans
+const hostingPlans = [
+  {
+    name: "Standard Hosting",
+    price: 15,
+    features: [
+      "99.9% Uptime Guarantee",
+      "5GB Storage",
+      "Free SSL Certificate",
+      "Daily Backups",
+      "Email Support"
+    ]
+  },
+  {
+    name: "Business Hosting",
+    price: 30,
+    features: [
+      "99.99% Uptime Guarantee",
+      "20GB Storage",
+      "Free SSL Certificate",
+      "Daily Backups",
+      "CDN Integration",
+      "Priority Support",
+      "Security Monitoring"
+    ]
+  },
+  {
+    name: "Enterprise Hosting",
+    price: 50,
+    features: [
+      "99.99% Uptime Guarantee",
+      "50GB Storage",
+      "Free SSL Certificate",
+      "Hourly Backups",
+      "CDN Integration",
+      "24/7 Priority Support",
+      "Advanced Security",
+      "Dedicated Resources"
+    ]
   }
 ];
 
@@ -103,61 +144,145 @@ const Pricing = () => {
           </div>
         </motion.div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {plans.map((plan, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`relative rounded-2xl overflow-hidden ${
-                plan.popular 
-                  ? 'glass border-primary border-2 shadow-lg' 
-                  : 'glass'
-              }`}
-            >
-              {plan.popular && (
-                <div className="absolute top-0 right-0">
-                  <div className="bg-primary text-white text-xs px-3 py-1 font-medium">
-                    Most Popular
-                  </div>
-                </div>
-              )}
-              
-              <div className="p-8">
-                <h3 className="text-2xl font-display font-bold mb-2">{plan.name}</h3>
-                <p className="text-muted-foreground text-sm mb-6">{plan.description}</p>
-                
-                <div className="mb-6">
-                  <span className="text-4xl font-display font-bold">
-                    {getCurrencySymbol(currency)}{convertPrice(plan.price)}
-                  </span>
-                  <span className="text-muted-foreground">/project</span>
-                </div>
-                
-                <ul className="space-y-3 mb-8">
-                  {plan.features.map((feature, i) => (
-                    <li key={i} className="flex items-start gap-2">
-                      <Check size={18} className="text-primary flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                
-                <Button 
-                  asChild 
-                  className={`w-full rounded-full ${plan.popular ? '' : 'bg-secondary text-primary hover:bg-secondary/80'}`}
-                  variant={plan.popular ? 'default' : 'outline'}
+        <Tabs defaultValue="development" className="mb-12">
+          <div className="flex justify-center">
+            <TabsList className="glass mb-8">
+              <TabsTrigger value="development">Development</TabsTrigger>
+              <TabsTrigger value="hosting">Hosting</TabsTrigger>
+            </TabsList>
+          </div>
+          
+          <TabsContent value="development">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {plans.map((plan, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className={`relative rounded-2xl overflow-hidden ${
+                    plan.popular 
+                      ? 'glass border-primary border-2 shadow-lg' 
+                      : 'glass'
+                  }`}
                 >
-                  <Link to="/contact" className="flex items-center justify-center gap-2">
-                    Get Started
-                    <ArrowRight size={16} />
-                  </Link>
-                </Button>
+                  {plan.popular && (
+                    <div className="absolute top-0 right-0">
+                      <div className="bg-primary text-white text-xs px-3 py-1 font-medium">
+                        Most Popular
+                      </div>
+                    </div>
+                  )}
+                  
+                  <div className="p-8">
+                    <h3 className="text-2xl font-display font-bold mb-2">{plan.name}</h3>
+                    <p className="text-muted-foreground text-sm mb-6">{plan.description}</p>
+                    
+                    <div className="mb-6">
+                      {plan.price !== null ? (
+                        <>
+                          <span className="text-4xl font-display font-bold">
+                            {getCurrencySymbol(currency)}{convertPrice(plan.price)}
+                          </span>
+                          <span className="text-muted-foreground">/project</span>
+                        </>
+                      ) : (
+                        <span className="text-2xl font-display font-medium">Custom Pricing</span>
+                      )}
+                    </div>
+                    
+                    <ul className="space-y-3 mb-8">
+                      {plan.features.map((feature, i) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <Check size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                          <span className="text-sm">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    
+                    <Button 
+                      asChild 
+                      className={`w-full rounded-full ${plan.popular ? '' : 'bg-secondary text-primary hover:bg-secondary/80'}`}
+                      variant={plan.popular ? 'default' : 'outline'}
+                    >
+                      <Link to="/contact" className="flex items-center justify-center gap-2">
+                        {plan.price !== null ? "Get Started" : "Contact Us"}
+                        <ArrowRight size={16} />
+                      </Link>
+                    </Button>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="hosting">
+            <div className="mb-6 text-center">
+              <h2 className="text-2xl font-display font-bold mb-2">Website Hosting Solutions</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                We offer reliable hosting services to keep your website fast, secure, and always online.
+                All hosting plans are billed monthly.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {hostingPlans.map((plan, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="glass rounded-2xl overflow-hidden"
+                >
+                  <div className="p-8">
+                    <h3 className="text-2xl font-display font-bold mb-2">{plan.name}</h3>
+                    
+                    <div className="mb-6">
+                      <span className="text-3xl font-display font-bold">
+                        {getCurrencySymbol(currency)}{convertPrice(plan.price)}
+                      </span>
+                      <span className="text-muted-foreground">/month</span>
+                    </div>
+                    
+                    <ul className="space-y-3 mb-8">
+                      {plan.features.map((feature, i) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <Check size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                          <span className="text-sm">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    
+                    <Button asChild className="w-full rounded-full">
+                      <Link to="/contact">
+                        Select Plan
+                      </Link>
+                    </Button>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+            
+            <div className="mt-12 glass p-6 rounded-xl bg-primary/5">
+              <h3 className="text-xl font-display font-semibold mb-4">All Hosting Plans Include:</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {[
+                  "Free Domain Name (1 year)",
+                  "24/7 Server Monitoring",
+                  "DDoS Protection",
+                  "Regular Software Updates",
+                  "Content Delivery Network",
+                  "Monthly Performance Reports"
+                ].map((feature, i) => (
+                  <div key={i} className="flex items-center gap-2">
+                    <Check size={16} className="text-primary flex-shrink-0" />
+                    <span className="text-sm">{feature}</span>
+                  </div>
+                ))}
               </div>
-            </motion.div>
-          ))}
-        </div>
+            </div>
+          </TabsContent>
+        </Tabs>
         
         {/* FAQ Section */}
         <motion.div
@@ -178,12 +303,12 @@ const Pricing = () => {
                 answer: "Our AI tools automate repetitive tasks, accelerate development, and help identify issues early in the process. This efficiency allows us to reduce costs while maintaining high quality."
               },
               {
-                question: "Do your prices include hosting?",
-                answer: "No, our prices cover the design and development of your website. Hosting is typically a separate monthly cost, but we can recommend affordable hosting solutions based on your needs."
+                question: "Do I need to purchase hosting from you?",
+                answer: "No, hosting is optional. While we do offer reliable hosting solutions, you're free to host your website elsewhere if you prefer. We can provide guidance on selecting the right hosting provider."
               },
               {
                 question: "How long does it take to complete a website?",
-                answer: "Project timelines vary based on complexity, but our AI-powered approach typically delivers websites 30-50% faster than traditional methods. Basic websites can be completed in 2-3 weeks, while more complex projects may take 4-8 weeks."
+                answer: "Project timelines vary based on complexity, but our AI-powered approach typically delivers websites 30-50% faster than traditional methods. Basic websites can be completed in 1-2 weeks, while more complex projects may take 3-6 weeks."
               },
               {
                 question: "Can I request custom features not mentioned in the plans?",
@@ -191,7 +316,7 @@ const Pricing = () => {
               },
               {
                 question: "Do you offer maintenance services after the website is launched?",
-                answer: "Yes, we offer maintenance packages to keep your website secure, updated, and running smoothly. We can discuss these options during our consultation."
+                answer: "Yes, we offer maintenance packages to keep your website secure, updated, and running smoothly. These can be arranged separately or included with our hosting plans."
               },
               {
                 question: "What payment methods do you accept?",
