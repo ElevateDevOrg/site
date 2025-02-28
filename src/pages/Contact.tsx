@@ -1,5 +1,4 @@
-
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -17,6 +16,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import emailjs from '@emailjs/browser';
 
 // Define form schema
 const formSchema = z.object({
@@ -44,25 +44,29 @@ const Contact = () => {
     },
   });
 
-  const onSubmit = async (data: FormValues) => {
-    setIsSubmitting(true);
-    
-    // In a real application, you would send this data to your server or an email service
-    // For this example, we'll simulate a successful submission after a delay
+  useEffect(() => emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY!), []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID!;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID!;
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // Show success notification
+      setIsSubmitting(true);
+      await emailjs.send(serviceId, templateId, {
+        name: form.getValues('name'),
+        email: form.getValues('email'),
+        phone: form.getValues('phone'),
+        company: form.getValues('company'),
+        message: form.getValues('message'),
+      });
       toast({
         title: "Message sent successfully!",
         description: "We'll get back to you as soon as possible.",
         duration: 5000,
       });
-      
-      // Reset form
       form.reset();
     } catch (error) {
+      console.error(error);
       toast({
         title: "Something went wrong",
         description: "Your message could not be sent. Please try again.",
@@ -108,7 +112,7 @@ const Contact = () => {
             </h2>
             
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <FormField
                     control={form.control}
@@ -264,6 +268,14 @@ const Contact = () => {
                   <span className="text-muted-foreground">Sunday</span>
                   <span>Closed</span>
                 </div>
+              </div>
+            </div>
+            
+            {/* Map (placeholder) */}
+            <div className="rounded-xl overflow-hidden h-64 bg-muted">
+              {/* In a real project, you would embed a Google Map or similar here */}
+              <div className="w-full h-full flex items-center justify-center bg-secondary/50">
+                <p className="text-muted-foreground">Interactive Map Coming Soon</p>
               </div>
             </div>
           </motion.div>
